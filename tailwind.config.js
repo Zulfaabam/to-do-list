@@ -8,7 +8,12 @@ export default {
     extend: {
       colors: {
         blue: "#16ABF8",
-        black: "#111111",
+        dark: "#111111",
+        gray: "#f4f4f4",
+        "gray-text": "#888888",
+      },
+      boxShadow: {
+        custom: "0px 6px 10px rgba(0, 0, 0, 0.1)",
       },
     },
   },
