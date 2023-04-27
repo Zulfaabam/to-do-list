@@ -6,7 +6,7 @@ interface ActivityCardProps {
   activityId: number;
   title: string;
   date: string;
-  deleteActivity: (activityId: number) => void;
+  deleteActivity: (activityId: number, title: string) => void;
 }
 
 const ActivityCard = ({
@@ -30,7 +30,7 @@ const ActivityCard = ({
         </p>
         <button
           data-cy="activity-item-delete-button"
-          onClick={() => deleteActivity(activityId)}
+          onClick={() => deleteActivity(activityId, title)}
         >
           <TbTrash size="18px" />
         </button>

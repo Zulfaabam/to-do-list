@@ -5,8 +5,11 @@ import instance from "./utils/axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "./components/ActivityCard";
 import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
+import { Snackbar, Alert } from "@mui/material";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import AddActivityModal from "./components/AddActivityModal";
 
-interface NewActivityBody {
+export interface NewActivityBody {
   email: string;
   title: string;
 }
@@ -24,7 +27,7 @@ interface ActivitiesData {
   title: string;
 }
 
-interface NewActivityData {
+export interface NewActivityData {
   created_at: string;
   email: string;
   id: number;
@@ -34,16 +37,41 @@ interface NewActivityData {
 
 function App() {
   const [activities, setActivities] = useState<Activities | null>(null);
+  const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    id: 0,
+    title: "",
+  });
+  const [alert, setAlert] = useState("");
 
-  function handleOpenDeleteModal(activityId: number) {
-    console.log(activityId);
+  function handleOpenAddModal() {
+    setOpenAddModal(true);
+  }
+
+  function handleCloseAddModal() {
+    setOpenAddModal(false);
+  }
+
+  function handleOpenDeleteModal(activityId: number, title: string) {
+    setDeleteData({ id: activityId, title: title });
     setOpenDeleteModal(true);
   }
 
   function handleCloseDeleteModal() {
     setOpenDeleteModal(false);
   }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAlert("");
+  };
 
   async function getAllActivity(email: string) {
     await instance
@@ -53,7 +81,7 @@ function App() {
         },
       })
       .then((res) => setActivities(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) => setAlert(error));
   }
 
   async function addNewActivity(body: NewActivityBody) {
@@ -77,8 +105,10 @@ function App() {
             total: activities.total + 1,
           });
         }
+        handleCloseAddModal();
+        setAlert("Activity berhasil ditambahkan");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setAlert(error));
   }
 
   async function deleteActivity(activityId: number) {
@@ -96,15 +126,15 @@ function App() {
             total: activities.total - 1,
           });
         }
+        handleCloseDeleteModal();
+        setAlert("Activity berhasil dihapus");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setAlert(error));
   }
 
   useEffect(() => {
     getAllActivity("zulfafatahakbar@gmail.com");
   }, []);
-
-  console.log(activities);
 
   return (
     <div className="bg-gray min-h-screen">
@@ -114,14 +144,7 @@ function App() {
           <h1 data-cy="activity-title" className="font-bold text-dark text-4xl">
             Activity
           </h1>
-          <AddButton
-            onClick={() =>
-              addNewActivity({
-                email: "zulfafatahakbar@gmail.com",
-                title: "activity 1",
-              })
-            }
-          />
+          <AddButton onClick={handleOpenAddModal} />
         </div>
         {activities === null ? (
           <div>Loading...</div>
@@ -133,7 +156,7 @@ function App() {
             className="mt-[59px] mx-auto"
           />
         ) : (
-          <div className="mt-[49px] flex flex-wrap gap-5">
+          <div className="mt-[49px] flex flex-wrap justify-between gap-5">
             {activities?.data.map((activity, idx) => (
               <ActivityCard
                 key={activity.id}
@@ -147,11 +170,49 @@ function App() {
           </div>
         )}
       </div>
+      {openAddModal ? (
+        <AddActivityModal
+          open={openAddModal}
+          onClose={handleCloseAddModal}
+          handleSave={addNewActivity}
+        />
+      ) : null}
       {openDeleteModal ? (
         <DeleteConfirmationModal
           open={openDeleteModal}
           onClose={handleCloseDeleteModal}
+          title={deleteData.title}
+          id={deleteData.id}
+          handleDelete={deleteActivity}
         />
+      ) : null}
+      {alert ? (
+        <Snackbar
+          open={Boolean(alert)}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          data-cy="modal-information"
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="info"
+            sx={{
+              width: "100%",
+              fontWeight: 500,
+              color: "#111111",
+              fontSize: 14,
+            }}
+            icon={<AiOutlineInfoCircle data-cy="modal-information-icon" />}
+          >
+            <p
+              className="text-sm text-dark font-medium"
+              data-cy="modal-information-title"
+            >
+              {alert}
+            </p>
+          </Alert>
+        </Snackbar>
       ) : null}
     </div>
   );
