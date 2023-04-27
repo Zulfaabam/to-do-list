@@ -4,6 +4,7 @@ import stateEmpty from "./assets/activity-empty-state.svg";
 import instance from "./utils/axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "./components/ActivityCard";
+import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
 
 interface NewActivityBody {
   email: string;
@@ -16,11 +17,13 @@ interface Activities {
   skip: number;
   total: number;
 }
+
 interface ActivitiesData {
   created_at: string;
   id: number;
   title: string;
 }
+
 interface NewActivityData {
   created_at: string;
   email: string;
@@ -31,8 +34,18 @@ interface NewActivityData {
 
 function App() {
   const [activities, setActivities] = useState<Activities | null>(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const getAllActivity = async (email: string) => {
+  function handleOpenDeleteModal(activityId: number) {
+    console.log(activityId);
+    setOpenDeleteModal(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setOpenDeleteModal(false);
+  }
+
+  async function getAllActivity(email: string) {
     await instance
       .get("/activity-groups", {
         params: {
@@ -41,9 +54,9 @@ function App() {
       })
       .then((res) => setActivities(res.data))
       .catch((error) => console.log(error));
-  };
+  }
 
-  const addNewActivity = async (body: NewActivityBody) => {
+  async function addNewActivity(body: NewActivityBody) {
     await instance
       .post("/activity-groups", body)
       .then((res) => {
@@ -51,7 +64,7 @@ function App() {
 
         const arr = activities?.data;
 
-        arr?.push({
+        arr?.unshift({
           id: newData.id,
           title: newData.title,
           created_at: newData.created_at,
@@ -60,20 +73,18 @@ function App() {
         if (arr) {
           setActivities({
             ...activities,
-            total: activities.total + 1,
             data: arr,
+            total: activities.total + 1,
           });
         }
       })
       .catch((error) => console.log(error));
-  };
+  }
 
-  const deleteActivity = async (activityId: number) => {
+  async function deleteActivity(activityId: number) {
     await instance
       .delete(`/activity-groups/${activityId}`)
       .then(() => {
-        console.log("delete success");
-
         const arr = activities?.data;
 
         const updatedActivities = arr?.filter((d) => d.id !== activityId);
@@ -87,7 +98,7 @@ function App() {
         }
       })
       .catch((error) => console.log(error));
-  };
+  }
 
   useEffect(() => {
     getAllActivity("zulfafatahakbar@gmail.com");
@@ -107,7 +118,7 @@ function App() {
             onClick={() =>
               addNewActivity({
                 email: "zulfafatahakbar@gmail.com",
-                title: "activity 2",
+                title: "activity 1",
               })
             }
           />
@@ -130,12 +141,18 @@ function App() {
                 activityId={activity.id}
                 title={activity.title}
                 date={activity.created_at}
-                deleteActivity={deleteActivity}
+                deleteActivity={handleOpenDeleteModal}
               />
             ))}
           </div>
         )}
       </div>
+      {openDeleteModal ? (
+        <DeleteConfirmationModal
+          open={openDeleteModal}
+          onClose={handleCloseDeleteModal}
+        />
+      ) : null}
     </div>
   );
 }

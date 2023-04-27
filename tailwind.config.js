@@ -11,6 +11,7 @@ export default {
         dark: "#111111",
         gray: "#f4f4f4",
         "gray-text": "#888888",
+        red: "#ED4C5C",
       },
       boxShadow: {
         custom: "0px 6px 10px rgba(0, 0, 0, 0.1)",
