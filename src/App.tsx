@@ -8,6 +8,7 @@ import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
 import { Snackbar, Alert } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import AddActivityModal from "./components/AddActivityModal";
+import { Link } from "react-router-dom";
 
 export interface NewActivityBody {
   email: string;
@@ -21,7 +22,7 @@ interface Activities {
   total: number;
 }
 
-interface ActivitiesData {
+export interface ActivitiesData {
   created_at: string;
   id: number;
   title: string;
@@ -139,12 +140,15 @@ function App() {
   return (
     <div className="bg-gray min-h-screen">
       <Navbar />
-      <div className="px-[220px] mt-11">
+      <div className="px-4 xl:px-[220px] mt-11">
         <div className="flex justify-between w-full">
           <h1 data-cy="activity-title" className="font-bold text-dark text-4xl">
             Activity
           </h1>
-          <AddButton onClick={handleOpenAddModal} />
+          <AddButton
+            dataCy="activity-add-button"
+            onClick={handleOpenAddModal}
+          />
         </div>
         {activities === null ? (
           <div>Loading...</div>
@@ -156,16 +160,17 @@ function App() {
             className="mt-[59px] mx-auto"
           />
         ) : (
-          <div className="mt-[49px] flex flex-wrap justify-between gap-5">
+          <div className="mt-[49px] flex flex-wrap gap-5">
             {activities?.data.map((activity, idx) => (
-              <ActivityCard
-                key={activity.id}
-                idx={idx + 1}
-                activityId={activity.id}
-                title={activity.title}
-                date={activity.created_at}
-                deleteActivity={handleOpenDeleteModal}
-              />
+              <Link key={activity.id} to={`activity/${activity.id}`}>
+                <ActivityCard
+                  idx={idx + 1}
+                  activityId={activity.id}
+                  title={activity.title}
+                  date={activity.created_at}
+                  deleteActivity={handleOpenDeleteModal}
+                />
+              </Link>
             ))}
           </div>
         )}
