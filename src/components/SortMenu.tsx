@@ -43,7 +43,8 @@ const SortMenu = ({ anchorEl, open, handleClose }: SortMenuProps) => {
         className="flex gap-5"
         data-cy="sort-latest"
       >
-        <RiSortDesc color="#16ABF8" /> <p className="font-sans">Terbaru</p>
+        <RiSortDesc color="#16ABF8" />{" "}
+        <p className="font-sans text-sm lg:text-base">Terbaru</p>
       </MenuItem>
       <Divider />
       <MenuItem
@@ -51,17 +52,18 @@ const SortMenu = ({ anchorEl, open, handleClose }: SortMenuProps) => {
         className="flex gap-5"
         data-cy="sort-oldest"
       >
-        <RiSortAsc color="#16ABF8" /> <p className="font-sans">Terlama</p>
+        <RiSortAsc color="#16ABF8" />{" "}
+        <p className="font-sans text-sm lg:text-base">Terlama</p>
       </MenuItem>
       <Divider />
       <MenuItem onClick={handleClose} className="flex gap-5" data-cy="sort-az">
         <TbSortAscendingLetters color="#16ABF8" />{" "}
-        <p className="font-sans">A-Z</p>
+        <p className="font-sans text-sm lg:text-base">A-Z</p>
       </MenuItem>
       <Divider />
       <MenuItem onClick={handleClose} className="flex gap-5" data-cy="sort-za">
         <TbSortDescendingLetters color="#16ABF8" />{" "}
-        <p className="font-sans">Z-A</p>
+        <p className="font-sans text-sm lg:text-base">Z-A</p>
       </MenuItem>
       <Divider />
       <MenuItem
@@ -70,7 +72,7 @@ const SortMenu = ({ anchorEl, open, handleClose }: SortMenuProps) => {
         data-cy="sort-unfinished"
       >
         <BiSortAlt2 color="#16ABF8" />{" "}
-        <p className="font-sans">Belum Selesai</p>
+        <p className="font-sans text-sm lg:text-base">Belum Selesai</p>
       </MenuItem>
     </Menu>
   );

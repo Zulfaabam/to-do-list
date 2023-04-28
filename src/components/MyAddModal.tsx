@@ -90,7 +90,7 @@ const MyAddModal = ({
       <DialogActions>
         <button
           data-cy={dataCyBtn}
-          className="bg-blue w-[150px] py-3 flex justify-center items-center text-white text-lg font-semibold rounded-[45px]"
+          className="bg-blue w-[150px] py-3 flex justify-center items-center text-white text-base lg:text-lg font-semibold rounded-[45px]"
           onClick={handleSave}
         >
           Simpan

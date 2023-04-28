@@ -8,7 +8,7 @@ import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
 import MyAddModal from "./components/MyAddModal";
 import { Link } from "react-router-dom";
 import MySnackbar from "./components/MySnackbar";
-import { LinearProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 export interface NewActivityBody {
   email: string;
@@ -58,7 +58,12 @@ function App() {
     setOpenAddModal(false);
   }
 
-  function handleOpenDeleteModal(activityId: number, title: string) {
+  function handleOpenDeleteModal(
+    e: React.FormEvent,
+    activityId: number,
+    title: string
+  ) {
+    e.preventDefault();
     setDeleteData({ id: activityId, title: title });
     setOpenDeleteModal(true);
   }
@@ -145,9 +150,12 @@ function App() {
   return (
     <div className="bg-gray min-h-screen">
       <Navbar />
-      <div className="px-4 xl:px-[220px] mt-11">
-        <div className="flex justify-between w-full">
-          <h1 data-cy="activity-title" className="font-bold text-dark text-4xl">
+      <div className="px-5 lg:px-[220px] mt-6 lg:mt-11">
+        <div className="flex justify-between items-center w-full">
+          <h1
+            data-cy="activity-title"
+            className="font-bold text-dark text-base lg:text-4xl"
+          >
             Activity
           </h1>
           <AddButton
@@ -156,13 +164,15 @@ function App() {
           />
         </div>
         {activities === null ? (
-          <LinearProgress />
+          <div className="flex justify-center items-center h-[413px]">
+            <CircularProgress />
+          </div>
         ) : activities?.total === 0 ? (
           <img
             src={stateEmpty}
             data-cy="activity-empty-state"
             alt="activity-empty-state"
-            className="mt-[59px] mx-auto"
+            className="mt-36 lg:mt-[59px] mx-auto"
           />
         ) : (
           <div className="mt-[49px] flex flex-wrap gap-5">
@@ -197,7 +207,7 @@ function App() {
             <input
               id="activity-title-input"
               placeholder="Tambahkan activity"
-              className="border border-gray rounded-md py-3 px-4 w-[400px]"
+              className="border border-gray rounded-md py-3 px-4 w-[200px] lg:w-[400px]"
               onChange={(e) => setBody({ ...body, title: e.target.value })}
             />
           </div>

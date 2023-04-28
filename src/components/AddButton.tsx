@@ -9,7 +9,7 @@ const AddButton = ({ dataCy, ...props }: AddButtonProps) => {
   return (
     <button
       data-cy={dataCy}
-      className="bg-blue text-white flex justify-center items-center gap-2 px-5 py-3 rounded-[45px] text-lg font-semibold"
+      className="bg-blue text-white flex justify-center items-center gap-2 px-5 py-3 rounded-[45px] text-xs lg:text-lg font-semibold"
       {...props}
     >
       <FiPlus /> Tambah

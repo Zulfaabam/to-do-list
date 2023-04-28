@@ -10,7 +10,7 @@ import { GrFormEdit, GrCheckmark } from "react-icons/gr";
 import stateEmpty from "../assets/todo-empty-state.svg";
 import MySnackbar from "../components/MySnackbar";
 import MyAddModal from "../components/MyAddModal";
-import { LinearProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import ListItem from "../components/ListItem";
 import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 import SortMenu from "../components/SortMenu";
@@ -160,17 +160,30 @@ const Activity = () => {
 
   return (
     <div className="bg-gray min-h-screen">
-      <Navbar />
-      <div className="px-4 xl:px-[220px] mt-11">
-        <div className="flex justify-between w-full">
-          <div className="flex gap-4 items-center">
-            <Link to="/" data-cy="todo-back-button">
+      <div className="hidden lg:block">
+        <Navbar />
+      </div>
+      <nav
+        data-cy="header-background"
+        className="bg-blue py-5 lg:py-8 pl-5 lg:hidden flex items-center gap-2"
+      >
+        <Link to="/" data-cy="todo-back-button">
+          <IoIosArrowBack size="20px" color="#ffffff" />
+        </Link>
+        <a href="/" className="text-white font-bold" data-cy="header-title">
+          {activityTitle}
+        </a>
+      </nav>
+      <div className="px-5 lg:px-[220px] mt-6 lg:mt-11">
+        <div className="flex flex-col lg:flex-row justify-between items-end lg:items-center w-full gap-6">
+          <div className="flex lg:gap-4 items-center w-full border-b border-b-[#D8D8D8] lg:border-none pb-2 lg:pb-0 justify-between lg:justify-start">
+            <Link to="/" data-cy="todo-back-button" className="hidden lg:block">
               <IoIosArrowBack size="32px" />
             </Link>
             {editTitle ? (
               <>
                 <input
-                  className="border border-gray rounded-md py-3 px-4 w-[250px]"
+                  className="border border-gray rounded-md py-2 lg:py-3 px-4 w-[250px]"
                   value={activityTitle}
                   onChange={(e) => setActivityTitle(e.target.value)}
                 />
@@ -191,7 +204,7 @@ const Activity = () => {
               <>
                 <h1
                   data-cy="todo-title"
-                  className="font-bold text-dark text-4xl"
+                  className="font-bold text-dark text-base lg:text-4xl"
                 >
                   {activityTitle}
                 </h1>
@@ -206,7 +219,7 @@ const Activity = () => {
           </div>
           <div className="flex gap-3 items-center">
             <button
-              className="border border-gray-text rounded-full p-3"
+              className="border border-gray-text rounded-full p-2 lg:p-3"
               data-cy="todo-sort-button"
               onClick={handleOpenSortMenu}
             >
@@ -216,13 +229,15 @@ const Activity = () => {
           </div>
         </div>
         {activity === null ? (
-          <LinearProgress />
+          <div className="flex justify-center items-center h-[413px]">
+            <CircularProgress />
+          </div>
         ) : activity.todo_items.length === 0 ? (
           <img
             src={stateEmpty}
             alt="todo-empty-state"
             data-cy="todo-empty-state"
-            className="mt-[59px] mx-auto"
+            className="mt-36 lg:mt-[59px] mx-auto"
           />
         ) : (
           <div className="flex flex-col gap-[10px] mt-12">
@@ -259,7 +274,7 @@ const Activity = () => {
             <input
               id="list-item-title-input"
               placeholder="Tambahkan nama list item"
-              className="border border-gray rounded-md py-3 px-4 w-[400px] mb-6"
+              className="border border-gray rounded-md py-3 px-4 w-[200px] lg:w-[400px] mb-6"
               data-cy="modal-add-name-input"
               value={listItem.title}
               onChange={(e) =>

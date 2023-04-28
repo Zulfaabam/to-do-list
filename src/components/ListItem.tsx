@@ -61,7 +61,7 @@ const ListItem = ({
         {editTitle ? (
           <>
             <input
-              className="border border-gray rounded-md py-1 px-3 w-[200px]"
+              className="border border-gray rounded-md py-1 px-1 lg:px-3 w-[140px] lg:w-[200px]"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -87,7 +87,7 @@ const ListItem = ({
               data-cy="todo-item-title"
               className={`${
                 !item.is_active ? "line-through text-gray-text" : ""
-              }`}
+              } font-medium`}
             >
               {item.title}
             </label>
