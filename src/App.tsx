@@ -5,7 +5,6 @@ import instance from "./utils/axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "./components/ActivityCard";
 import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
-import MyAddModal from "./components/MyAddModal";
 import { Link } from "react-router-dom";
 import MySnackbar from "./components/MySnackbar";
 import { CircularProgress } from "@mui/material";
@@ -38,25 +37,12 @@ export interface NewActivityData {
 
 function App() {
   const [activities, setActivities] = useState<Activities | null>(null);
-  const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deleteData, setDeleteData] = useState({
     id: 0,
     title: "",
   });
   const [alert, setAlert] = useState("");
-  const [body, setBody] = useState({
-    email: "zulfafatahakbar@gmail.com",
-    title: "",
-  });
-
-  function handleOpenAddModal() {
-    setOpenAddModal(true);
-  }
-
-  function handleCloseAddModal() {
-    setOpenAddModal(false);
-  }
 
   function handleOpenDeleteModal(
     e: React.FormEvent,
@@ -116,7 +102,6 @@ function App() {
             total: activities.total + 1,
           });
         }
-        handleCloseAddModal();
         setAlert("Activity berhasil ditambahkan");
       })
       .catch((error) => setAlert(error));
@@ -160,7 +145,12 @@ function App() {
           </h1>
           <AddButton
             dataCy="activity-add-button"
-            onClick={handleOpenAddModal}
+            onClick={() =>
+              addNewActivity({
+                email: "zulfafatahakbar@gmail.com",
+                title: "new activity",
+              })
+            }
           />
         </div>
         {activities === null ? (
@@ -190,29 +180,6 @@ function App() {
           </div>
         )}
       </div>
-      {openAddModal ? (
-        <MyAddModal
-          open={openAddModal}
-          onClose={handleCloseAddModal}
-          handleSave={() => addNewActivity(body)}
-          title="Tambah Activity"
-          dataCy=""
-          dataCyTitle=""
-          dataCyBtn=""
-        >
-          <div className="flex flex-col gap-2">
-            <label htmlFor="activity-title-input" className="text-dark text-xs">
-              Title
-            </label>
-            <input
-              id="activity-title-input"
-              placeholder="Tambahkan activity"
-              className="border border-gray rounded-md py-3 px-4 w-[200px] lg:w-[400px]"
-              onChange={(e) => setBody({ ...body, title: e.target.value })}
-            />
-          </div>
-        </MyAddModal>
-      ) : null}
       {openDeleteModal ? (
         <DeleteConfirmationModal
           open={openDeleteModal}
