@@ -11,7 +11,7 @@ const MySnackbar = ({ alert, handleClose }: MySnackbarProps) => {
   return (
     <Snackbar
       open={Boolean(alert)}
-      autoHideDuration={5000}
+      autoHideDuration={3000}
       onClose={handleClose}
       data-cy="modal-information"
       anchorOrigin={{ vertical: "top", horizontal: "center" }}

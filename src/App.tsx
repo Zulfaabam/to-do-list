@@ -5,9 +5,10 @@ import instance from "./utils/axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "./components/ActivityCard";
 import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
-import AddActivityModal from "./components/AddActivityModal";
+import MyAddModal from "./components/MyAddModal";
 import { Link } from "react-router-dom";
 import MySnackbar from "./components/MySnackbar";
+import { LinearProgress } from "@mui/material";
 
 export interface NewActivityBody {
   email: string;
@@ -44,6 +45,10 @@ function App() {
     title: "",
   });
   const [alert, setAlert] = useState("");
+  const [body, setBody] = useState({
+    email: "zulfafatahakbar@gmail.com",
+    title: "",
+  });
 
   function handleOpenAddModal() {
     setOpenAddModal(true);
@@ -150,7 +155,7 @@ function App() {
           />
         </div>
         {activities === null ? (
-          <div>Loading...</div>
+          <LinearProgress />
         ) : activities?.total === 0 ? (
           <img
             src={stateEmpty}
@@ -175,11 +180,27 @@ function App() {
         )}
       </div>
       {openAddModal ? (
-        <AddActivityModal
+        <MyAddModal
           open={openAddModal}
           onClose={handleCloseAddModal}
-          handleSave={addNewActivity}
-        />
+          handleSave={() => addNewActivity(body)}
+          title="Tambah Activity"
+          dataCy=""
+          dataCyTitle=""
+          dataCyBtn=""
+        >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="activity-title-input" className="text-dark text-xs">
+              Title
+            </label>
+            <input
+              id="activity-title-input"
+              placeholder="Tambahkan activity"
+              className="border border-gray rounded-md py-3 px-4 w-[400px]"
+              onChange={(e) => setBody({ ...body, title: e.target.value })}
+            />
+          </div>
+        </MyAddModal>
       ) : null}
       {openDeleteModal ? (
         <DeleteConfirmationModal

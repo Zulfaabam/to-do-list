@@ -12,6 +12,10 @@ export default {
         gray: "#f4f4f4",
         "gray-text": "#888888",
         red: "#ED4C5C",
+        green: "#00A790",
+        yellow: "#FFCE31",
+        "light-blue": "#43C4E3",
+        purple: "#B01AFF",
       },
       boxShadow: {
         custom: "0px 6px 10px rgba(0, 0, 0, 0.1)",
