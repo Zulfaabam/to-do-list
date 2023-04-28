@@ -74,6 +74,7 @@ function App() {
     if (reason === "clickaway") {
       return;
     }
+    event?.preventDefault();
 
     setAlert("");
   };

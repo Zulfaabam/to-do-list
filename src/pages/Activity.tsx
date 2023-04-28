@@ -143,6 +143,7 @@ const Activity = () => {
     if (reason === "clickaway") {
       return;
     }
+    event?.preventDefault();
 
     setAlert("");
   };
