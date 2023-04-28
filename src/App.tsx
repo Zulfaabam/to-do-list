@@ -5,10 +5,9 @@ import instance from "./utils/axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "./components/ActivityCard";
 import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
-import { Snackbar, Alert } from "@mui/material";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 import AddActivityModal from "./components/AddActivityModal";
 import { Link } from "react-router-dom";
+import MySnackbar from "./components/MySnackbar";
 
 export interface NewActivityBody {
   email: string;
@@ -191,34 +190,7 @@ function App() {
           handleDelete={deleteActivity}
         />
       ) : null}
-      {alert ? (
-        <Snackbar
-          open={Boolean(alert)}
-          autoHideDuration={5000}
-          onClose={handleClose}
-          data-cy="modal-information"
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="info"
-            sx={{
-              width: "100%",
-              fontWeight: 500,
-              color: "#111111",
-              fontSize: 14,
-            }}
-            icon={<AiOutlineInfoCircle data-cy="modal-information-icon" />}
-          >
-            <p
-              className="text-sm text-dark font-medium"
-              data-cy="modal-information-title"
-            >
-              {alert}
-            </p>
-          </Alert>
-        </Snackbar>
-      ) : null}
+      {alert ? <MySnackbar alert={alert} handleClose={handleClose} /> : null}
     </div>
   );
 }
