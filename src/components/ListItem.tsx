@@ -49,14 +49,14 @@ const ListItem = ({
               ? "bg-red"
               : item.priority === "high"
               ? "bg-yellow"
-              : item.priority === "medium"
+              : item.priority === "normal"
               ? "bg-green"
               : item.priority === "low"
               ? "bg-light-blue"
               : item.priority === "very-low"
               ? "bg-purple"
               : ""
-          } w-2 h-2 rounded-full`}
+          } w-2 h-2 rounded-full aspect-square`}
         ></div>
         {editTitle ? (
           <>

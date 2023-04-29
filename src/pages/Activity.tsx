@@ -43,7 +43,7 @@ const Activity = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [listItem, setListItem] = useState<ListItem>({
     title: "",
-    priority: "",
+    priority: "very-high",
     activity_group_id: activityId && parseInt(activityId),
   });
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -268,9 +268,6 @@ const Activity = () => {
           onClose={handleCloseAddModal}
           handleSave={() => addListItem(listItem)}
           title="Tambah List Item"
-          dataCy="modal-add"
-          dataCyTitle="modal-add-title"
-          dataCyBtn="modal-add-save-button"
         >
           <div className="flex flex-col gap-2">
             <label
@@ -308,7 +305,7 @@ const Activity = () => {
             >
               <option value="very-high">Very High</option>
               <option value="high">High</option>
-              <option value="medium">Medium</option>
+              <option value="normal">Medium</option>
               <option value="low">Low</option>
               <option value="very-low">Very Low</option>
             </select>

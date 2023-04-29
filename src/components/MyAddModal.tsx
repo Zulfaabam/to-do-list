@@ -54,22 +54,16 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
 export interface AddActivityModalProps {
   open: boolean;
   onClose: () => void;
-  dataCy: string;
-  dataCyTitle: string;
   title: string;
   children: React.ReactNode;
-  dataCyBtn: string;
   handleSave: () => void;
 }
 
 const MyAddModal = ({
   open,
   onClose,
-  dataCy,
-  dataCyTitle,
   title,
   children,
-  dataCyBtn,
   handleSave,
 }: AddActivityModalProps) => {
   return (
@@ -77,19 +71,19 @@ const MyAddModal = ({
       onClose={onClose}
       aria-labelledby="customized-add-activity"
       open={open}
-      data-cy={dataCy}
+      data-cy="modal-add"
     >
       <BootstrapDialogTitle
         id="customized-add-activity"
         onClose={onClose}
-        data-cy={dataCyTitle}
+        data-cy="modal-add-title"
       >
         {title}
       </BootstrapDialogTitle>
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
         <button
-          data-cy={dataCyBtn}
+          data-cy="modal-add-save-button"
           className="bg-blue w-[150px] py-3 flex justify-center items-center text-white text-base lg:text-lg font-semibold rounded-[45px]"
           onClick={handleSave}
         >
