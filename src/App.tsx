@@ -70,7 +70,7 @@ function App() {
     setAlert("");
   };
 
-  async function getAllActivity(email: string) {
+  async function getActivities(email: string) {
     await instance
       .get("/activity-groups", {
         params: {
@@ -102,7 +102,7 @@ function App() {
             total: activities.total + 1,
           });
         }
-        setAlert("Activity berhasil ditambahkan");
+        // setAlert("Activity berhasil ditambahkan");
       })
       .catch((error) => setAlert(error));
   }
@@ -129,7 +129,7 @@ function App() {
   }
 
   useEffect(() => {
-    getAllActivity("zulfafatahakbar@gmail.com");
+    getActivities("zulfafatahakbar@gmail.com");
   }, []);
 
   return (
