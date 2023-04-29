@@ -84,26 +84,7 @@ function App() {
   async function addNewActivity(body: NewActivityBody) {
     await instance
       .post("/activity-groups", body)
-      .then((res) => {
-        const newData: NewActivityData = res.data;
-
-        const arr = activities?.data;
-
-        arr?.unshift({
-          id: newData.id,
-          title: newData.title,
-          created_at: newData.created_at,
-        });
-
-        if (arr) {
-          setActivities({
-            ...activities,
-            data: arr,
-            total: activities.total + 1,
-          });
-        }
-        // setAlert("Activity berhasil ditambahkan");
-      })
+      .then(() => getActivities("zulfafatahakbar@gmail.com"))
       .catch((error) => setAlert(error));
   }
 
@@ -111,17 +92,7 @@ function App() {
     await instance
       .delete(`/activity-groups/${activityId}`)
       .then(() => {
-        const arr = activities?.data;
-
-        const updatedActivities = arr?.filter((d) => d.id !== activityId);
-
-        if (arr && updatedActivities) {
-          setActivities({
-            ...activities,
-            data: updatedActivities,
-            total: activities.total - 1,
-          });
-        }
+        getActivities("zulfafatahakbar@gmail.com");
         handleCloseDeleteModal();
         setAlert("Activity berhasil dihapus");
       })
@@ -160,7 +131,7 @@ function App() {
           <div className="flex justify-center items-center h-[413px]">
             <CircularProgress />
           </div>
-        ) : activities?.total === 0 ? (
+        ) : activities?.data?.length === 0 ? (
           <img
             src={stateEmpty}
             data-cy="activity-empty-state"
