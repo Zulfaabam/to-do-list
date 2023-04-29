@@ -207,6 +207,7 @@ const Activity = () => {
                 <h1
                   data-cy="todo-title"
                   className="font-bold text-dark text-base lg:text-4xl"
+                  onClick={() => setEditTitle(true)}
                 >
                   {activityTitle}
                 </h1>
@@ -268,6 +269,7 @@ const Activity = () => {
           onClose={handleCloseAddModal}
           handleSave={() => addListItem(listItem)}
           title="Tambah List Item"
+          disabled={!listItem.title}
         >
           <div className="flex flex-col gap-2">
             <label

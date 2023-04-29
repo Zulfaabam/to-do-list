@@ -23,7 +23,7 @@ const ListItem = ({
     <div
       key={idx}
       className="bg-white shadow-custom rounded-xl px-7 py-6 flex justify-between"
-      data-cy={`todo-item-${idx}`}
+      data-cy="todo-item"
     >
       <div className="flex gap-4 items-center">
         <input

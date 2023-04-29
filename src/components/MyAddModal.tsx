@@ -56,6 +56,7 @@ export interface AddActivityModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  disabled: boolean;
   handleSave: () => void;
 }
 
@@ -64,6 +65,7 @@ const MyAddModal = ({
   onClose,
   title,
   children,
+  disabled,
   handleSave,
 }: AddActivityModalProps) => {
   return (
@@ -84,8 +86,9 @@ const MyAddModal = ({
       <DialogActions>
         <button
           data-cy="modal-add-save-button"
-          className="bg-blue w-[150px] py-3 flex justify-center items-center text-white text-base lg:text-lg font-semibold rounded-[45px]"
+          className="bg-blue w-[150px] py-3 flex justify-center items-center text-white text-base lg:text-lg font-semibold rounded-[45px] disabled:opacity-20"
           onClick={handleSave}
+          disabled={disabled}
         >
           Simpan
         </button>
