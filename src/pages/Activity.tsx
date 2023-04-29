@@ -14,6 +14,7 @@ import ListItem from "../components/ListItem";
 import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 import SortMenu from "../components/SortMenu";
 import { FiPlus } from "react-icons/fi";
+import { priorityOptions } from "../utils/const";
 
 export interface TodoItems {
   activity_group_id: number;
@@ -305,11 +306,9 @@ const Activity = () => {
                 setListItem({ ...listItem, priority: e.target.value })
               }
             >
-              <option value="very-high">Very High</option>
-              <option value="high">High</option>
-              <option value="normal">Medium</option>
-              <option value="low">Low</option>
-              <option value="very-low">Very Low</option>
+              {priorityOptions.map((priority) => (
+                <option value={priority.value}>{priority.label}</option>
+              ))}
             </select>
           </div>
         </MyAddModal>
