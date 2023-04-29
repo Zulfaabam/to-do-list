@@ -29,6 +29,7 @@ interface Activity extends ActivitiesData {
 
 interface ListItem {
   title: string;
+  priority: string;
   activity_group_id: number | "" | undefined;
 }
 
@@ -42,6 +43,7 @@ const Activity = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [listItem, setListItem] = useState<ListItem>({
     title: "",
+    priority: "",
     activity_group_id: activityId && parseInt(activityId),
   });
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -238,6 +240,7 @@ const Activity = () => {
             alt="todo-empty-state"
             data-cy="todo-empty-state"
             className="mt-36 lg:mt-[59px] mx-auto"
+            onClick={handleOpenAddModal}
           />
         ) : (
           <div className="flex flex-col gap-[10px] mt-12">
@@ -292,6 +295,10 @@ const Activity = () => {
               id="list-item-priority-input"
               className="border border-gray rounded-md py-3 px-4 w-[200px]"
               data-cy="modal-add-priority-dropdown"
+              value={listItem.priority}
+              onChange={(e) =>
+                setListItem({ ...listItem, priority: e.target.value })
+              }
             >
               <option value="very-high">Very High</option>
               <option value="high">High</option>

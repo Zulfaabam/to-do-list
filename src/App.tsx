@@ -163,6 +163,12 @@ function App() {
             data-cy="activity-empty-state"
             alt="activity-empty-state"
             className="mt-36 lg:mt-[59px] mx-auto"
+            onClick={() =>
+              addNewActivity({
+                email: "zulfafatahakbar@gmail.com",
+                title: "new activity",
+              })
+            }
           />
         ) : (
           <div className="mt-[49px] flex flex-wrap gap-5">
