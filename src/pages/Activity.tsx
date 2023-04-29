@@ -91,7 +91,7 @@ const Activity = () => {
   async function updateTitle(activityId: number, title: string) {
     await instance
       .patch(`/activity-groups/${activityId}`, { title })
-      .then(() => setAlert("Update title berhasil"))
+      .then()
       .catch((error) => setAlert(error));
   }
 
