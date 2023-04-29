@@ -1,4 +1,3 @@
-import AddButton from "./components/AddButton";
 import Navbar from "./components/Navbar";
 import stateEmpty from "./assets/activity-empty-state.svg";
 import instance from "./utils/axios";
@@ -8,6 +7,7 @@ import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
 import { Link } from "react-router-dom";
 import MySnackbar from "./components/MySnackbar";
 import { CircularProgress } from "@mui/material";
+import { FiPlus } from "react-icons/fi";
 
 export interface NewActivityBody {
   email: string;
@@ -143,15 +143,18 @@ function App() {
           >
             Activity
           </h1>
-          <AddButton
-            dataCy="activity-add-button"
+          <button
+            data-cy="activity-add-button"
+            className="bg-blue text-white flex justify-center items-center gap-2 px-5 py-3 rounded-[45px] text-xs lg:text-lg font-semibold"
             onClick={() =>
               addNewActivity({
                 email: "zulfafatahakbar@gmail.com",
                 title: "new activity",
               })
             }
-          />
+          >
+            <FiPlus /> Tambah
+          </button>
         </div>
         {activities === null ? (
           <div className="flex justify-center items-center h-[413px]">
@@ -173,9 +176,8 @@ function App() {
         ) : (
           <div className="mt-[49px] flex flex-wrap gap-5">
             {activities?.data.map((activity, idx) => (
-              <Link key={activity.id} to={`activity/${activity.id}`}>
+              <Link key={idx} to={`activity/${activity.id}`}>
                 <ActivityCard
-                  idx={idx + 1}
                   activityId={activity.id}
                   title={activity.title}
                   date={activity.created_at}

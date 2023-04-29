@@ -2,7 +2,6 @@ import { TbTrash } from "react-icons/tb";
 import moment from "moment";
 
 interface ActivityCardProps {
-  idx: number;
   activityId: number;
   title: string;
   date: string;
@@ -14,7 +13,6 @@ interface ActivityCardProps {
 }
 
 const ActivityCard = ({
-  idx,
   activityId,
   title,
   date,
@@ -23,7 +21,7 @@ const ActivityCard = ({
   return (
     <div
       className="bg-white rounded-xl w-[150px] h-[150px] lg:w-[235px] lg:h-[235px] py-[22px] px-6 flex flex-col justify-between shadow-custom"
-      data-cy={`activity-item-${idx}`}
+      data-cy="activity-item"
     >
       <h2
         data-cy="activity-item-title"

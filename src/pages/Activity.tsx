@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import AddButton from "../components/AddButton";
 import { Link, useParams } from "react-router-dom";
 import instance from "../utils/axios";
 import { ActivitiesData } from "../App";
@@ -14,6 +13,7 @@ import { CircularProgress } from "@mui/material";
 import ListItem from "../components/ListItem";
 import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 import SortMenu from "../components/SortMenu";
+import { FiPlus } from "react-icons/fi";
 
 export interface TodoItems {
   activity_group_id: number;
@@ -227,7 +227,13 @@ const Activity = () => {
             >
               <BiSortAlt2 color="#888888" size="20px" />
             </button>
-            <AddButton dataCy="todo-add-button" onClick={handleOpenAddModal} />
+            <button
+              data-cy="todo-add-button"
+              className="bg-blue text-white flex justify-center items-center gap-2 px-5 py-3 rounded-[45px] text-xs lg:text-lg font-semibold"
+              onClick={handleOpenAddModal}
+            >
+              <FiPlus /> Tambah
+            </button>
           </div>
         </div>
         {activity === null ? (
